@@ -3,12 +3,12 @@ package cn.irving.zhao.auth.service.manager.impl;
 import cn.irving.zhao.auth.service.entity.UserThirdLoginInfo;
 import cn.irving.zhao.auth.service.manager.UserThirdLoginInfoManager;
 import cn.irving.zhao.auth.service.mapper.UserThirdLoginInfoMapper;
+import cn.irving.zhao.auth.service.util.UUIDUtil;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author Irving
@@ -32,8 +32,8 @@ public class UserThirdLoginInfoManagerImpl implements UserThirdLoginInfoManager 
     @Override
     public void addThirdLoginInfo(String baseId, String platform, String thirdId) {
         UserThirdLoginInfo loginInfo = new UserThirdLoginInfo();
-        loginInfo.setId(UUID.randomUUID().toString().replace("-", ""));
-        loginInfo.setBaseId(baseId);
+        loginInfo.setId(UUIDUtil.generateUUID());
+        loginInfo.setUserId(baseId);
         loginInfo.setPlatform(platform);
         loginInfo.setThirdId(thirdId);
         loginInfoMapper.insertSelective(loginInfo);
@@ -45,7 +45,7 @@ public class UserThirdLoginInfoManagerImpl implements UserThirdLoginInfoManager 
         UserThirdLoginInfo loginInfo = new UserThirdLoginInfo();
         loginInfo.setThirdId(newThirdId);
         Example example = new Example(UserThirdLoginInfo.class);
-        example.createCriteria().andEqualTo("baseId", baseId)
+        example.createCriteria().andEqualTo("userId", baseId)
                 .andEqualTo("platform", platform);
         loginInfoMapper.updateByExampleSelective(loginInfo, example);
         //TODO 添加日志
@@ -53,9 +53,9 @@ public class UserThirdLoginInfoManagerImpl implements UserThirdLoginInfoManager 
 
     @Override
     public void removeThirdLoginInfo(String baseId, String platform) {
-        Example example=new Example(UserThirdLoginInfo.class);
-        example.createCriteria().andEqualTo("baseId",baseId)
-                .andEqualTo("platform",platform);
+        Example example = new Example(UserThirdLoginInfo.class);
+        example.createCriteria().andEqualTo("userId", baseId)
+                .andEqualTo("platform", platform);
         loginInfoMapper.deleteByExample(example);//TODO 考虑是否添加 IS_DELETE
         //TODO 添加日志
     }

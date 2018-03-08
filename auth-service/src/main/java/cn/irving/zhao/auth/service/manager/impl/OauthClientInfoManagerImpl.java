@@ -1,5 +1,6 @@
 package cn.irving.zhao.auth.service.manager.impl;
 
+import cn.irving.zhao.auth.service.constant.DeleteEnum;
 import cn.irving.zhao.auth.service.entity.OauthClientInfo;
 import cn.irving.zhao.auth.service.manager.OauthClientInfoManager;
 import cn.irving.zhao.auth.service.mapper.OauthClientInfoMapper;
@@ -52,7 +53,7 @@ public class OauthClientInfoManagerImpl implements OauthClientInfoManager {
     private OauthClientInfo getOauthClientById(String oauthClientId) {
         OauthClientInfo param = new OauthClientInfo();
         param.setClientId(oauthClientId);
-        param.setIsDelete("N");//TODO 查询未删除的
+        param.setIsDelete(DeleteEnum.N);//查询未删除
         List<OauthClientInfo> result = clientMapper.select(param);
         if (result == null || result.isEmpty()) {
             return null;

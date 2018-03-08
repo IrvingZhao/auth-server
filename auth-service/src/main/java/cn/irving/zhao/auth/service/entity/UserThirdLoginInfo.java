@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * @version UserThirdLoginInfo.java, v 0.1 2018/2/22
  */
 @Entity
-@Table(name = "uc_user_third_platform_info")
+@Table(name = "uc_third_login_info")
 @Getter
 @Setter
 public class UserThirdLoginInfo {
@@ -27,7 +27,7 @@ public class UserThirdLoginInfo {
     @Column(name = "third_id")
     private String thirdId;
 
-    @Column(name = "base_id")
-    private String baseId;
+    @Column(name = "user_id")
+    private String userId;
 
 }

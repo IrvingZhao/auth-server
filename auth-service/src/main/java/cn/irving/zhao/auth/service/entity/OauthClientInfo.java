@@ -1,5 +1,6 @@
 package cn.irving.zhao.auth.service.entity;
 
+import cn.irving.zhao.auth.service.constant.DeleteEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,6 +39,6 @@ public class OauthClientInfo {
     private Date createTime;
 
     @Column(name = "is_delete")
-    private String isDelete;
+    private DeleteEnum isDelete;
 
 }

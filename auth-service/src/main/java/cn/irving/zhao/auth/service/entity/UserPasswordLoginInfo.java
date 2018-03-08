@@ -1,6 +1,8 @@
 package cn.irving.zhao.auth.service.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -13,9 +15,11 @@ import javax.persistence.Table;
  * @version UserPasswordLoginInfo.java, v 0.1 2018/2/22
  */
 @Entity
-@Table(name = "uc_user_password_info")
+@Table(name = "uc_username_password_info")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserPasswordLoginInfo {
 
     @Id
@@ -30,7 +34,7 @@ public class UserPasswordLoginInfo {
     @Column(name = "salt")
     private String salt;
 
-    @Column(name = "base_id")
-    private String baseId;
+    @Column(name = "user_id")
+    private String userId;
 
 }

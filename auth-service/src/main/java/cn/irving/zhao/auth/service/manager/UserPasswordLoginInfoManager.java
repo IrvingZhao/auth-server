@@ -2,6 +2,8 @@ package cn.irving.zhao.auth.service.manager;
 
 import cn.irving.zhao.auth.service.entity.UserPasswordLoginInfo;
 
+import javax.security.auth.login.AccountException;
+
 /**
  * @author Irving
  * @version UserPasswordLoginInfoManager.java, v 0.1 2018/2/22
@@ -11,7 +13,7 @@ public interface UserPasswordLoginInfoManager {
     /**
      * 根据用户名密码创建新用户
      */
-    void addNewUser(String userName, String password);
+    void addNewUser(String userName, String password) throws AccountException;
 
     /**
      * 根据用户名，获得用户名密码登陆信息
