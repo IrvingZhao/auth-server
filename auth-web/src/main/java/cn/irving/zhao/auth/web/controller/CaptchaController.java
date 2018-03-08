@@ -41,6 +41,10 @@ public class CaptchaController {
         captcha.write(response.getOutputStream(), "JPEG");
     }
 
+    public void validPicCaptcha() {
+        //TODO 验证图片验证码
+    }
+
     /**
      * 发送短信验证码
      */

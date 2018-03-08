@@ -1,5 +1,6 @@
 package cn.irving.zhao.auth.web.shiro;
 
+import cn.irving.zhao.auth.service.entity.UserBaseInfo;
 import cn.irving.zhao.platform.core.shiro.user.ShiroUser;
 import lombok.AllArgsConstructor;
 
@@ -18,6 +19,8 @@ public class AuthWebUser implements ShiroUser {
     private final String userId;
     private final String password;
     private final String salt;
+
+    private UserBaseInfo userBaseInfo;
 
     @Override
     public String getUserId() {
@@ -42,5 +45,14 @@ public class AuthWebUser implements ShiroUser {
     @Override
     public Collection<String> getPerms() {
         return Collections.emptyList();
+    }
+
+    public UserBaseInfo getUserBaseInfo() {
+        return userBaseInfo;
+    }
+
+    public AuthWebUser setUserBaseInfo(UserBaseInfo userBaseInfo) {
+        this.userBaseInfo = userBaseInfo;
+        return this;
     }
 }

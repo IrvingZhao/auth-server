@@ -12,6 +12,11 @@ public interface Constant {
     String SESSION_SMS_VALID_CODE_KEY = "sms.valid.code";
 
     /**
+     * session 短信验证码对应手机号
+     */
+    String SESSION_SMS_VALID_MOBILE_KEY = "sms.valid.mobile";
+
+    /**
      * session 图片验证码 key
      */
     String SESSION_PIC_VALID_CODE_KEY = "pic.valid.code";
