@@ -8,9 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @version ThirdPartController.java, v 0.1 2018/2/27 zhaojn1
  * @project userProfile
  */
-@Controller
 @RequestMapping("/third")
 public class ThirdPartController {
+
+    @RequestMapping("/login")
+    public void login(String platform, String redirectUrl) {
+        //TODO 保存平台和重定向地址 并返回生成码
+        //TODO 获取授权登陆地址
+    }
+
+    public void loginCallback() {
+
+    }
+
     //注册
     //登陆
 }

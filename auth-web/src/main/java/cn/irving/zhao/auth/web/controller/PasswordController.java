@@ -1,6 +1,7 @@
 package cn.irving.zhao.auth.web.controller;
 
 import cn.irving.zhao.auth.service.constant.UserStatus;
+import cn.irving.zhao.auth.service.entity.UserPasswordLoginInfo;
 import cn.irving.zhao.auth.service.manager.UserPasswordLoginInfoManager;
 import cn.irving.zhao.auth.web.constant.Constant;
 import cn.irving.zhao.auth.web.shiro.AuthWebUser;
@@ -11,6 +12,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +27,6 @@ import java.util.Map;
  * @author Irving
  * @version PasswordController.java, v 0.1 2018/2/27
  */
-@Controller
 @RequestMapping("/password")
 @Slf4j
 public class PasswordController {
@@ -95,6 +96,7 @@ public class PasswordController {
                 passwordLoginInfoManager.addNewUser(mobile, password);
                 PasswordToken passwordToken = new PasswordToken(mobile, password);
                 subject.login(passwordToken);
+                //TODO 注册之后的重定向地址
             } catch (AccountException e) {
                 result.put("success", false);
                 result.put("message", "账号已存在");
@@ -110,8 +112,31 @@ public class PasswordController {
     public Map<String, Object> resetPassword(String mobile,
                                              String password,
                                              String vercode) {
-        //TODO 重置密码
-        return null;
+        Map<String, Object> result = new HashMap<>();
+        UserPasswordLoginInfo loginInfo = passwordLoginInfoManager.getUserPasswordLoginInfoByUserName(mobile);
+        if (loginInfo == null) {
+            result.put("success", "false");
+            result.put("message", "用户名不存在");
+        } else {
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession(true);
+            String sessionMobile = String.valueOf(session.getAttribute(Constant.SESSION_SMS_VALID_MOBILE_KEY));
+            String sessionVercode = String.valueOf(session.getAttribute(Constant.SESSION_SMS_VALID_CODE_KEY));
+            if (mobile.equals(sessionMobile) && vercode.equals(sessionVercode)) {
+                session.removeAttribute(Constant.SESSION_SMS_VALID_MOBILE_KEY);
+                session.removeAttribute(Constant.SESSION_SMS_VALID_CODE_KEY);
+                passwordLoginInfoManager.updateUserPassword(loginInfo.getUserId(), mobile, password);
+                PasswordToken passwordToken = new PasswordToken(mobile, password);
+                subject.login(passwordToken);
+                result.put("success", true);
+                result.put("message", "密码修改成功");
+                //TODO 修改密码之后的重定向
+            } else {
+                result.put("success", false);
+                result.put("message", "验证码失效，请重新获取");
+            }
+        }
+        return result;
     }
 
 

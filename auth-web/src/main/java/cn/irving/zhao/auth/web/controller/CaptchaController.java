@@ -19,7 +19,6 @@ import java.io.IOException;
  * @author Irving
  * @version CaptchaController.java, v 0.1 2018/2/27
  */
-@Controller
 @RequestMapping("/captcha")
 public class CaptchaController {
 
@@ -41,7 +40,8 @@ public class CaptchaController {
         captcha.write(response.getOutputStream(), "JPEG");
     }
 
-    public void validPicCaptcha() {
+    @RequestMapping("/pic/valid")
+    public void validPicCaptcha(String valid) {
         //TODO 验证图片验证码
     }
 
@@ -52,6 +52,11 @@ public class CaptchaController {
     @ResponseBody
     public void sendSmsValidCode(@RequestParam(name = "mobile") String mobile) {
         //TODO 发送短信验证码并返回结果
+    }
+
+    public void validSmsValidCode(@RequestParam(name = "mobile") String mobile,
+                                  @RequestParam(name = "vercode") String vercode) {
+        //TODO 验证短信验证码，添加 requestHead 或 session 等相关校验内容
     }
 
 }

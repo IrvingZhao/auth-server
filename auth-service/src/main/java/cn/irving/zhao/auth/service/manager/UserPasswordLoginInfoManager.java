@@ -21,28 +21,28 @@ public interface UserPasswordLoginInfoManager {
     UserPasswordLoginInfo getUserPasswordLoginInfoByUserName(String userName);
 
     /**
-     * 根据用户baseId，添加一个用户名密码登陆信息
+     * 根据用户userId，添加一个用户名密码登陆信息
      */
-    void addUserPasswordLoginInfo(String baseId, String userName, String password);
+    void addUserPasswordLoginInfo(String userId, String userName, String password);
 
     /**
      * 添加一个登陆方式
      */
-    void addUserPasswordLoginInfo(String baseId, String userName);
+    void addUserPasswordLoginInfo(String userId, String userName);
 
     /**
-     * 根据用户baseId、用户名，移除一个用户登陆信息
+     * 根据用户userId、用户名，移除一个用户登陆信息
      */
-    void removeUserPasswordLoginInfo(String baseId, String userName);
+    void removeUserPasswordLoginInfo(String userId, String userName);
 
     /**
-     * 根据用户baseId、用户名，修改登陆密码
+     * 根据用户userId、用户名，修改登陆密码
      */
-    void updateUserPassword(String baseId, String userName, String password);
+    void updateUserPassword(String userId, String userName, String password);
 
     /**
      * 更改用户所有登陆账户密码
      */
-    void updateUserPassword(String baseId, String password);
+    void updateUserPassword(String userId, String password);
 
 }
